@@ -1,4 +1,4 @@
-COP3404 Project 3 Relocating Loader
+# COP3404 Project 3 Relocating Loader
 
 ## About
 sicrelocader is a relocating loader for the SIC implemented in C. It will
