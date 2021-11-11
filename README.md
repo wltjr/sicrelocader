@@ -10,8 +10,7 @@ accept accept 3 command-line arguments.
   The possible values of the third argument are: SIC SICXE
 
 ## Authors
-Houman Karimi
-Karli Dattilo
-Riyam Yatooma
-William L Thomson Jr
-
+- Houman Karimi
+- Karli Dattilo
+- Riyam Yatooma
+- William L Thomson Jr
