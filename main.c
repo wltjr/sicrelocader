@@ -1,6 +1,38 @@
+#include <argp.h>
 #include "headers.h"
 
 int exit_status = EXIT_SUCCESS;
+
+/* FIXME : Modify the following for argp and remove this comment */
+const char *argp_program_version = "";
+const char *argp_program_bug_address = "";
+static char doc[] = "";
+
+/* Unused arguments description*/
+static char args_doc[] = "";
+
+static struct argp_option options[] = {
+
+/* FIXME : menu structure goes here and remove this comment */
+
+};
+
+static error_t parse_opt(int key, char *arg, struct argp_state *state) {
+    switch(key) {
+
+/* FIXME : switch cases will go here to match menu structure and remove this comment */
+
+        case ARGP_KEY_NO_ARGS:
+            if(!state->argv[1])
+                argp_usage(state);
+            return(1);
+        default:
+            return ARGP_ERR_UNKNOWN;
+    }
+    return(0);
+}
+
+static struct argp argp = { options, parse_opt, args_doc, doc };
 
 int main(int argc, char* argv[])
 {
@@ -10,6 +42,8 @@ int main(int argc, char* argv[])
         printError(argv[1], -1,"Usage: %s filename", argv[0]);
         return EXIT_FAILURE;
     }
+
+    argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
 
     return exit_status;
 }
