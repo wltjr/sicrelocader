@@ -19,7 +19,7 @@ TRECORD* readFile(char* filename)
     {
         printError(filename, -1,
                    "Directories are unsupported, files only!");
-        return EXIT_FAILURE;
+        return NULL;
     }
 
     fp = fopen(filename, "r");
@@ -30,7 +30,7 @@ TRECORD* readFile(char* filename)
             printError(filename, -1, "%s", strerror(errno));
         else
             printError(filename, -1, "File not found or could not be read");
-        return EXIT_FAILURE;
+        return NULL;
     }
 
     /* FIXME: code to process file goes here, ideally a function call,
