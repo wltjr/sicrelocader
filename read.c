@@ -1,5 +1,7 @@
 #include "headers.h"
 
+#define DEBUG
+
 /**
  * Reads a sic object file and loads the text records into a linked list
  *
@@ -11,6 +13,12 @@ TRECORD* readFile(char* filename)
 {
     FILE *fp = NULL;
     TRECORD* first = NULL;
+    TRECORD* last = NULL;
+    int TREC_LEN = 71;
+    int HEADER_LEN = 20;
+    int line_num = 0;
+    char header[20] = {0};
+    char line[71] = {0};
 
     // directory check
     struct stat s_stat;
@@ -32,10 +40,39 @@ TRECORD* readFile(char* filename)
             printError(filename, -1, "File not found or could not be read");
         return NULL;
     }
+    
+    // get header record
+    if(fgets(line, TREC_LEN, fp)) {
+        line_num++;
+        strncpy(header,line, HEADER_LEN);
+    }
 
-    /* FIXME: code to process file goes here, ideally a function call,
-     *          may move fopen/close into said function
-     */
+    // get t-records, build linked list
+    while (fgets(line, TREC_LEN, fp))
+    {
+        line_num++;
+        if(line[0]==84) {
+            TRECORD* trec = nmalloc(sizeof(TRECORD));
+            trec->size = strlen(line)+1;
+            trec->data = nmalloc(trec->size * sizeof(char));
+            strncpy(trec->data, line, trec->size);
+            trec->line = line_num;
+            if(!first)
+                first = trec;
+            else
+                last->next = trec;
+            last = trec;
+        }
+    }
+
+#ifdef DEBUG
+    // display linked list
+    TRECORD* cur = first;
+    while(cur) {
+        printf("%s",cur->data);
+        cur = cur->next;
+    }
+#endif
 
     fclose(fp);
     return first;
