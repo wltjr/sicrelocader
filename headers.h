@@ -36,6 +36,15 @@ void* nmalloc(size_t size);
 void printError(const char *filename, const int line, const char *format, ...);
 
 /**
+ * Reads a sic object file and loads the text records into a linked list
+ *
+ * @filename filename to the sic object file, relative or absolute name
+ *
+ * @return a pointer to the first TRECORD struct in the linked list
+ */
+TRECORD* readFile(char* filename);
+
+/**
  * Relocates a t-record to a new start address.
  *
  * @param tRecord the t-record that is going to be relocated
