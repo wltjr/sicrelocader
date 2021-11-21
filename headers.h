@@ -36,3 +36,15 @@ void* nmalloc(size_t size);
  */
 void printError(const char *filename, const int line, const char *format, ...);
 
+/**
+ * Relocates a t-record to a new start address.
+ *
+ * @param tRecord the t-record that is going to be relocated
+ * @param start the new start address of the program after relocation
+ * @param mAddress the address of the address dependent object code
+ *
+ * @return 1 on successful rewrite of the t-record, otherwise the function returns 0
+ */
+int rewriteSICTRecord(TRECORD* record, int* start, int mAddress)
+
+
