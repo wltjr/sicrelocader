@@ -43,7 +43,19 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
+/* FIXME: Remove comment wrapper once above struct and switch are populated
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
+*/
+
+    TRECORD* first = readFile(argv[1]);
+
+    TRECORD* cur = first;
+    while(cur) {
+        TRECORD* link = cur;
+        cur = cur->next;
+        free(link->data);
+        free(link);
+    }
 
     return exit_status;
 }
