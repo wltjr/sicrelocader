@@ -6,15 +6,14 @@
 #include <string.h>
 #include <sys/stat.h>
 
-/* struct to hold H, T, and E records */
-typedef struct record
+/* struct to hold T records */
+typedef struct trecord
 {
-	char	type;
         int     line;
 	int	size;
         char*   data;
 	void*	next;
-} RECORD;
+} TRECORD;
 
 /*** main prototypes ***/
 
