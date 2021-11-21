@@ -4,8 +4,6 @@ int exit_status = EXIT_SUCCESS;
 
 int main(int argc, char* argv[])
 {
-    FILE *fp = NULL;
-
     /* Ensure the user invoked us with at least 2 arguments */
     if (argc < 2 || strlen(argv[1]) < 1)
     {
