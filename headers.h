@@ -6,6 +6,16 @@
 #include <string.h>
 #include <sys/stat.h>
 
+/* struct to hold H, T, and E records */
+typedef struct record
+{
+	char	type;
+        int     line;
+	int	size;
+        char*   data;
+	void*	next;
+} RECORD;
+
 /*** main prototypes ***/
 
 /**
