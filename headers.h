@@ -53,6 +53,6 @@ TRECORD* readFile(char* filename);
  *
  * @return 1 on successful rewrite of the t-record, otherwise the function returns 0
  */
-int rewriteSICTRecord(TRECORD* record, int* start, int mAddress)
+int rewriteSICTRecord(TRECORD* record, int* start, int mAddress);
 
 
