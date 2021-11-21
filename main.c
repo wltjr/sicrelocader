@@ -13,32 +13,6 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    // directory check
-    struct stat s_stat;
-    stat(argv[1], &s_stat);
-    if (S_ISDIR(s_stat.st_mode))
-    {
-        printError(argv[1], -1,
-                   "Directories are unsupported, files only!");
-        return EXIT_FAILURE;
-    }
-
-    fp = fopen(argv[1], "r");
-
-    if (!fp)
-    {
-        if (errno != 0)
-            printError(argv[1], -1, "%s", strerror(errno));
-        else
-            printError(argv[1], -1,"File not found or could not be read");
-        return EXIT_FAILURE;
-    }
-
-/* FIXME: code to process file goes here, ideally a function call,
-*          may move fopen/close into said function
-*/
-
-    fclose(fp);
     return exit_status;
 }
 
