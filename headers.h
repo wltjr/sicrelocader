@@ -48,11 +48,12 @@ TRECORD* readFile(char* filename);
  * Relocates a t-record to a new start address.
  *
  * @param tRecord the t-record that is going to be relocated
- * @param start the new start address of the program after relocation
+ * @param oldStart the current start address of the program prior to relocation
+ * @param newStart the new start address of the program after relocation
  * @param mAddress the address of the address dependent object code
  *
  * @return 1 on successful rewrite of the t-record, otherwise the function returns 0
  */
-int rewriteSICTRecord(TRECORD* record, int* start, int mAddress);
+int rewriteSICTRecord(TRECORD* record, int oldStart, int newStart, int mAddress);
 
 
