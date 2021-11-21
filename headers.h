@@ -7,12 +7,11 @@
 #include <sys/stat.h>
 
 /* struct to hold T records */
-typedef struct trecord
-{
-        int     line;
-	int	size;
-        char*   data;
-	void*	next;
+typedef struct trecord {
+    int line;
+    int size;
+    char* data;
+    void* next;
 } TRECORD;
 
 /*** main prototypes ***/
