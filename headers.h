@@ -42,10 +42,11 @@ void printError(const char *filename, const int line, const char *format, ...);
  * Reads a sic object file and loads the text records into a linked list
  *
  * @filename filename to the sic object file, relative or absolute name
+ * @start_new the new start address for the program to be relocated to
  *
  * @return a pointer to the first TRECORD struct in the linked list
  */
-TRECORD* readFile(char* filename);
+TRECORD* readFile(char* filename, int* start_new);
 
 /**
  * Relocates a t-record to a new start address.

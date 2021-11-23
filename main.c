@@ -36,10 +36,10 @@ static struct argp argp = { options, parse_opt, args_doc, doc };
 
 int main(int argc, char* argv[])
 {
-    /* Ensure the user invoked us with at least 2 arguments */
-    if (argc < 2 || strlen(argv[1]) < 1)
+    /* Ensure the user invoked us with at least 3 arguments */
+    if (argc < 3 || strlen(argv[1]) < 1)
     {
-        printError(argv[1], -1,"Usage: %s filename", argv[0]);
+        printError(argv[1], -1,"Usage: %s filename hex_start", argv[0]);
         return EXIT_FAILURE;
     }
 
@@ -47,7 +47,9 @@ int main(int argc, char* argv[])
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
 */
 
-    TRECORD* first = readFile(argv[1]);
+    int start_new;
+    sscanf(argv[2], "%06X", &start_new);
+    TRECORD* first = readFile(argv[1], &start_new);
 
     TRECORD* cur = first;
     while(cur) {
