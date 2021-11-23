@@ -6,6 +6,9 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#define RECORD_ADDR_OFFSET 1
+#define RECORD_SIZE_OFFSET 7
+
 /* struct to hold T records */
 typedef struct trecord {
     int line;

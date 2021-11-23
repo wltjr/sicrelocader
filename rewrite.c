@@ -1,7 +1,5 @@
 #include "headers.h"
 
-#define RECORD_ADDR_OFFSET 1
-#define RECORD_SIZE_OFFSET 7
 #define RECORD_OBJ_OFFSET 9
 #define NUM_HALF_BYTES_TO_EDIT 4
 #define X_FLAG_BIT (1 << 15)
