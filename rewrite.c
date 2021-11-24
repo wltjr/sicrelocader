@@ -7,24 +7,15 @@
 int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes)
 {
     // find the correct t-record
+    char* left;
     char variableWidthFormat[] = "%0*X";
     variableWidthFormat[VARIABLE_WIDTH_FORMAT_INDEX] = half_bytes + '0';
 
-    int currentRecordAddress = 0;
-    char* left;
 
     while (record != NULL)
     {
-        left = record->data + RECORD_ADDR_OFFSET;
-        if (sscanf(left, "%06X", &currentRecordAddress) == 0)
-            return 1;
 
-        left = record->data + RECORD_SIZE_OFFSET;
-        int recordSize = 0;
-        if (sscanf(left, "%02X", &recordSize) == 0)
-            return 1;
-
-        if (m_address >= currentRecordAddress && m_address <= (currentRecordAddress + recordSize))
+        if (m_address >= record->start && m_address <= (record->start + record->len))
             break;
 
         record = record->next;
@@ -34,7 +25,7 @@ int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_addres
         return 1;
 
     // process the t-record
-    int offset = m_address - currentRecordAddress;
+    int offset = m_address - record->start;
 
     left = record->data + RECORD_OBJ_OFFSET + (offset * 2);
     unsigned int objAddress = 0;
