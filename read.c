@@ -102,7 +102,7 @@ RECORD* readFile(char* filename, int* start_new)
             sscanf(skip,"%06X",&maddress);
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&mod_len);
-            rewriteSICTRecord(first->next, start_old, *start_new, maddress, mod_len);
+            rewriteTRecord(first->next, start_old, *start_new, maddress, mod_len, 0);
 
 #ifdef DEBUG
             printf("mod-address = %06X, len = %02X \n", maddress, mod_len);
