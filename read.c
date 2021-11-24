@@ -145,9 +145,18 @@ RECORD* readFile(char* filename, int* start_new)
         }
     }
 
+    // re-write the start address of T records
+    RECORD* cur = first->next;
+    char start[RECORD_SIZE_OFFSET+1] = {0};
+    while(cur->data[0]!=69) {
+        sprintf(start,"T%06X",(*start_new + (cur->start - start_old)));
+        strncpy(cur->data,start,RECORD_SIZE_OFFSET-1);
+        cur = cur->next;
+    }
+
 #ifdef DEBUG
     // display linked list
-    RECORD* cur = first;
+    cur = first;
     while(cur) {
         printf("%s",cur->data);
         cur = cur->next;
