@@ -92,7 +92,7 @@ TRECORD* readFile(char* filename, int* start_new)
             sscanf(skip,"%06X",&maddress);
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&mod_len);
-            rewriteSICTRecord(first->next, start_old, *start_new, maddress);
+            rewriteSICTRecord(first->next, start_old, *start_new, maddress, mod_len);
 
 #ifdef DEBUG
             printf("mod-address = %X , len = %X \n", maddress, mod_len);
@@ -128,7 +128,7 @@ TRECORD* readFile(char* filename, int* start_new)
 
             trec = addRecord(line, &line_num, &first, &last);
             // calculate new address of first line to execute
-            sprintf(trec->data,"H%06X\n",(*start_new + (exec_old - start_old)));
+            sprintf(trec->data,"E%06X\n",(*start_new + (exec_old - start_old)));
 #ifdef DEBUG
             printf("exec old = %X\n", exec_old);
 #endif
