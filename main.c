@@ -49,11 +49,11 @@ int main(int argc, char* argv[])
 
     int start_new;
     sscanf(argv[2], "%06X", &start_new);
-    TRECORD* first = readFile(argv[1], &start_new);
+    RECORD* first = readFile(argv[1], &start_new);
 
-    TRECORD* cur = first;
+    RECORD* cur = first;
     while(cur) {
-        TRECORD* link = cur;
+        RECORD* link = cur;
         cur = cur->next;
         free(link->data);
         free(link);

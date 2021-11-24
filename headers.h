@@ -9,13 +9,13 @@
 #define RECORD_ADDR_OFFSET 1
 #define RECORD_SIZE_OFFSET 7
 
-/* struct to hold T records */
-typedef struct trecord {
+/* struct to hold H, T, and E records */
+typedef struct record {
     int line;
     int size;
     char* data;
     void* next;
-} TRECORD;
+} RECORD;
 
 /*** main prototypes ***/
 
@@ -44,9 +44,9 @@ void printError(const char *filename, const int line, const char *format, ...);
  * @filename filename to the sic object file, relative or absolute name
  * @start_new the new start address for the program to be relocated to
  *
- * @return a pointer to the first TRECORD struct in the linked list
+ * @return a pointer to the first RECORD struct in the linked list
  */
-TRECORD* readFile(char* filename, int* start_new);
+RECORD* readFile(char* filename, int* start_new);
 
 /**
  * Relocates a t-record to a new start address.
@@ -59,6 +59,6 @@ TRECORD* readFile(char* filename, int* start_new);
  *
  * @return 1 on successful rewrite of the t-record, otherwise the function returns 0
  */
-int rewriteSICTRecord(TRECORD* record, int old_start, int new_start, int m_address, int half_bytes);
+int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes);
 
 

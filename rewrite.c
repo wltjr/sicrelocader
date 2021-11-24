@@ -4,7 +4,7 @@
 #define RECORD_OBJ_OFFSET 9
 #define X_FLAG_BIT (1 << 15)
 
-int rewriteSICTRecord(TRECORD* record, int old_start, int new_start, int m_address, int half_bytes)
+int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes)
 {
     // find the correct t-record
     char variableWidthFormat[] = "%0*X";

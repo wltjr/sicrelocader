@@ -11,22 +11,22 @@
  * @first reference to the pointer tracking the first record in the linked list
  * @last reference to the pointer tracking the last record in the linked list
  *
- * @return a pointer to the new TRECORD struct in the linked list
+ * @return a pointer to the new RECORD struct in the linked list
  */
-TRECORD* addRecord(char *line, int *line_num, TRECORD** first, TRECORD** last)
+RECORD* addRecord(char *line, int *line_num, RECORD** first, RECORD** last)
 {
-    TRECORD* trec;
+    RECORD* rec;
 
-    trec = nmalloc(sizeof(TRECORD));
-    trec->size = strlen(line)+1;
-    trec->data = nmalloc(trec->size * sizeof(char));
-    trec->line = *line_num;
+    rec = nmalloc(sizeof(RECORD));
+    rec->size = strlen(line)+1;
+    rec->data = nmalloc(rec->size * sizeof(char));
+    rec->line = *line_num;
     if(!*first)
-        *first = trec;
+        *first = rec;
     else
-        (*last)->next = trec;
-    *last = trec;
-    return(trec);
+        (*last)->next = rec;
+    *last = rec;
+    return(rec);
 }
 
 /**
@@ -35,13 +35,13 @@ TRECORD* addRecord(char *line, int *line_num, TRECORD** first, TRECORD** last)
  * @filename filename to the sic object file, relative or absolute name
  * @start_new the new start address for the program to be relocated to
  *
- * @return a pointer to the first TRECORD struct in the linked list
+ * @return a pointer to the first RECORD struct in the linked list
  */
-TRECORD* readFile(char* filename, int* start_new)
+RECORD* readFile(char* filename, int* start_new)
 {
     FILE *fp = NULL;
-    TRECORD* first = NULL;
-    TRECORD* last = NULL;
+    RECORD* first = NULL;
+    RECORD* last = NULL;
     int TREC_LEN = 71;
     int line_num = 0;
     int maddress = 0;
@@ -78,11 +78,11 @@ TRECORD* readFile(char* filename, int* start_new)
         line_num++;
         // handle text record 84 = T
         if(line[0]==84) {
-            TRECORD* trec;
+            RECORD* rec;
 
-            trec = addRecord(line, &line_num, &first, &last);
-            strncpy(trec->data, line, trec->size);
-            printf("%s", trec->data);
+            rec = addRecord(line, &line_num, &first, &last);
+            strncpy(rec->data, line, rec->size);
+            printf("%s", rec->data);
         }
         // handle modification record 77 = M
         else if(line[0]==77) {
@@ -100,7 +100,7 @@ TRECORD* readFile(char* filename, int* start_new)
         }
         // handle header record 72 = H
         else if(line[0]==72) {
-            TRECORD* trec;
+            RECORD* rec;
             char *skip;
 
             skip = line + RECORD_SIZE_OFFSET;
@@ -108,11 +108,11 @@ TRECORD* readFile(char* filename, int* start_new)
             skip = line + RECORD_SIZE_OFFSET * 2;
             sscanf(skip,"%06X",&prog_len);          // store program length
 
-            trec = addRecord(line, &line_num, &first, &last);
+            rec = addRecord(line, &line_num, &first, &last);
             // copy first part of header, H + NAME
-            strncpy(trec->data, line, RECORD_SIZE_OFFSET);
+            strncpy(rec->data, line, RECORD_SIZE_OFFSET);
             // add the new start + same length to header
-            skip = trec->data + RECORD_SIZE_OFFSET;
+            skip = rec->data + RECORD_SIZE_OFFSET;
             sprintf(skip,"%06X%06X\n",*start_new,prog_len);
 #ifdef DEBUG
             printf("start old = %X , prog len = %X \n", start_old, prog_len);
@@ -120,15 +120,15 @@ TRECORD* readFile(char* filename, int* start_new)
         }
         // handle end record 69 = E
         else if(line[0]==69) {
-            TRECORD* trec;
+            RECORD* rec;
             char *skip;
 
             skip = line + RECORD_ADDR_OFFSET;
             sscanf(skip,"%06X",&exec_old);
 
-            trec = addRecord(line, &line_num, &first, &last);
+            rec = addRecord(line, &line_num, &first, &last);
             // calculate new address of first line to execute
-            sprintf(trec->data,"E%06X\n",(*start_new + (exec_old - start_old)));
+            sprintf(rec->data,"E%06X\n",(*start_new + (exec_old - start_old)));
 #ifdef DEBUG
             printf("exec old = %X\n", exec_old);
 #endif
@@ -137,7 +137,7 @@ TRECORD* readFile(char* filename, int* start_new)
 
 #ifdef DEBUG
     // display linked list
-    TRECORD* cur = first;
+    RECORD* cur = first;
     while(cur) {
         printf("%s",cur->data);
         cur = cur->next;
