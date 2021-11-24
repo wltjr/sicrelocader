@@ -1,11 +1,15 @@
 #include "headers.h"
 
+#define VARIABLE_WIDTH_FORMAT_INDEX 2
 #define RECORD_OBJ_OFFSET 9
 #define X_FLAG_BIT (1 << 15)
 
 int rewriteSICTRecord(TRECORD* record, int old_start, int new_start, int m_address, int half_bytes)
 {
     // find the correct t-record
+    char variableWidthFormat[] = "%0*X";
+    variableWidthFormat[VARIABLE_WIDTH_FORMAT_INDEX] = half_bytes + '0';
+
     int currentRecordAddress = 0;
     char* left;
 
@@ -34,7 +38,7 @@ int rewriteSICTRecord(TRECORD* record, int old_start, int new_start, int m_addre
 
     left = record->data + RECORD_OBJ_OFFSET + (offset * 2);
     unsigned int objAddress = 0;
-    if (sscanf(left, "%04X", &objAddress) == 0) // assuming the number of half bytes we are editing is 4
+    if (sscanf(left, variableWidthFormat, &objAddress) == 0)
         return 1;
 
     unsigned int xBit = objAddress & X_FLAG_BIT;
@@ -44,7 +48,7 @@ int rewriteSICTRecord(TRECORD* record, int old_start, int new_start, int m_addre
     relocatedAddress |= xBit;
 
     char* tempBuffer = nmalloc(half_bytes + 1);
-    sprintf(tempBuffer, "%0*X", half_bytes, relocatedAddress); // do this so sprintf doesnt copy over the \0
+    sprintf(tempBuffer, variableWidthFormat, relocatedAddress); // do this so sprintf doesnt copy over the \0
     strncpy(left, tempBuffer, half_bytes);
     free(tempBuffer);
 
