@@ -79,10 +79,20 @@ RECORD* readFile(char* filename, int* start_new)
         // handle text record 84 = T
         if(line[0]==84) {
             RECORD* rec;
+            char *skip;
 
             rec = addRecord(line, &line_num, &first, &last);
+            
+            skip = line + RECORD_ADDR_OFFSET;
+            sscanf(skip,"%06X",&rec->start);
+            skip = line + RECORD_SIZE_OFFSET;
+            sscanf(skip,"%02X",&rec->len);
+            
             strncpy(rec->data, line, rec->size);
             printf("%s", rec->data);
+#ifdef DEBUG
+            printf("tstart-address = %06X, len = %02X \n", rec->start, rec->len);
+#endif
         }
         // handle modification record 77 = M
         else if(line[0]==77) {
@@ -95,7 +105,7 @@ RECORD* readFile(char* filename, int* start_new)
             rewriteSICTRecord(first->next, start_old, *start_new, maddress, mod_len);
 
 #ifdef DEBUG
-            printf("mod-address = %X , len = %X \n", maddress, mod_len);
+            printf("mod-address = %06X, len = %02X \n", maddress, mod_len);
 #endif
         }
         // handle header record 72 = H
@@ -115,7 +125,7 @@ RECORD* readFile(char* filename, int* start_new)
             skip = rec->data + RECORD_SIZE_OFFSET;
             sprintf(skip,"%06X%06X\n",*start_new,prog_len);
 #ifdef DEBUG
-            printf("start old = %X , prog len = %X \n", start_old, prog_len);
+            printf("start old = %06X, prog len = %06X \n", start_old, prog_len);
 #endif
         }
         // handle end record 69 = E
@@ -130,7 +140,7 @@ RECORD* readFile(char* filename, int* start_new)
             // calculate new address of first line to execute
             sprintf(rec->data,"E%06X\n",(*start_new + (exec_old - start_old)));
 #ifdef DEBUG
-            printf("exec old = %X\n", exec_old);
+            printf("exec old = %06X\n", exec_old);
 #endif
         }
     }
