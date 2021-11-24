@@ -58,9 +58,10 @@ RECORD* readFile(char* filename, int* start_new);
  * @param new_start the new start address of the program after relocation
  * @param m_address the address of the address dependent object code
  * @param half_bytes the number of half bytes that need to be changed according to the m record
+ * @param XE_flag the flag which tells the function if the given record is from an XE machine. None zero value indicates XE
  *
  * @return 1 on successful rewrite of the t-record, otherwise the function returns 0
  */
-int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes);
+int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag);
 
 

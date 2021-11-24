@@ -4,13 +4,12 @@
 #define RECORD_OBJ_OFFSET 9
 #define X_FLAG_BIT (1 << 15)
 
-int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes)
+int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag)
 {
     // find the correct t-record
     char* left;
     char variableWidthFormat[] = "%0*X";
     variableWidthFormat[VARIABLE_WIDTH_FORMAT_INDEX] = half_bytes + '0';
-
 
     while (record != NULL)
     {
@@ -22,12 +21,15 @@ int rewriteSICTRecord(RECORD* record, int old_start, int new_start, int m_addres
     }
 
     if (record == NULL)
-        return 1;
+        return 1; // TODO: error codes or error message
 
     // process the t-record
     int offset = m_address - record->start;
 
     left = record->data + RECORD_OBJ_OFFSET + (offset * 2);
+    if (XE_flag)
+        left++;
+
     unsigned int objAddress = 0;
     if (sscanf(left, variableWidthFormat, &objAddress) == 0)
         return 1;
