@@ -11,8 +11,10 @@
 
 /* struct to hold H, T, and E records */
 typedef struct record {
+    int len;
     int line;
     int size;
+    int start;
     char* data;
     void* next;
 } RECORD;
