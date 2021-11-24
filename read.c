@@ -92,6 +92,8 @@ TRECORD* readFile(char* filename, int* start_new)
             sscanf(skip,"%06X",&maddress);
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&mod_len);
+            rewriteSICTRecord(first->next, start_old, *start_new, maddress);
+
 #ifdef DEBUG
             printf("mod-address = %X , len = %X \n", maddress, mod_len);
 #endif
