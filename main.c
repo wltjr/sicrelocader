@@ -13,6 +13,9 @@ static char args_doc[] = "";
 
 static struct argp_option options[] = {
 {0,'d',0,0,"Show a dot on the screen"},
+{"filename",'f',0,0,"Name of file"}, // -f, --filename    Name of file... some description
+{"start",'s',0,0,"Start address in hex"},// -s, --start        Start address in hex... some description
+{"platform",'p',0,0," Platform SIC or SICXE."},// -p, --platform    Platform SIC or SICXE... some description
 {0}
 };
 
@@ -20,6 +23,12 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     switch(key) {
 	 case 'd': printf (".\n");
         break;
+	case 'f': printf("f\n");
+	 break;
+	case 's': printf("s\n");
+	 break;
+	case 'p': printf("p\n");
+	 break;
         case ARGP_KEY_NO_ARGS:
             if(!state->argv[1])
                 argp_usage(state);
