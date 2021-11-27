@@ -36,15 +36,17 @@ static struct argp argp = { options, parse_opt, args_doc, doc };
 
 int main(int argc, char* argv[])
 {
-    /* Ensure the user invoked us with at least 3 arguments */
 /////////////////////////////////////////////////////////////
- if (sizeof(argv[2]) >= sizeof( 32768))
+
+ int start_address_hex = atoi(argv[2]);
+ if (start_address_hex > 8000)				//only true if start address is given in hex
 {
 	printf("USAGE: ERROR: ADDRESS SIZE TOO LARGE\n");
 	//fclose(fp);
 	return 0;
 }
 /////////////////////////////////////////////////////////////
+/* Ensure the user invoked us with at least 3 arguments */
   if (argc < 3 || strlen(argv[1]) < 1)
     {
         printError(argv[1], -1,"Usage: %s filename hex_start", argv[0]);
