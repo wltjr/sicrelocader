@@ -4,8 +4,8 @@
 int exit_status = EXIT_SUCCESS;
 
 
-const char *argp_program_version = "1.0";
-const char *argp_program_bug_address = "Team Loaders";
+const char *argp_program_version = "Version 1.0";
+const char *argp_program_bug_address = "TeamLoaders@123mail.org";
 static char doc[] = "";
 
 /* Unused arguments description*/
