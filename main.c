@@ -3,25 +3,23 @@
 
 int exit_status = EXIT_SUCCESS;
 
-/* FIXME : Modify the following for argp and remove this comment */
-const char *argp_program_version = "";
-const char *argp_program_bug_address = "";
+
+const char *argp_program_version = "1.0";
+const char *argp_program_bug_address = "Team Loaders";
 static char doc[] = "";
 
 /* Unused arguments description*/
 static char args_doc[] = "";
 
 static struct argp_option options[] = {
-
-/* FIXME : menu structure goes here and remove this comment */
-
+{0,'d',0,0,"Show a dot on the screen"},
+{0}
 };
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     switch(key) {
-
-/* FIXME : switch cases will go here to match menu structure and remove this comment */
-
+	 case 'd': printf (".\n");
+        break;
         case ARGP_KEY_NO_ARGS:
             if(!state->argv[1])
                 argp_usage(state);
@@ -32,30 +30,31 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     return(0);
 }
 
-static struct argp argp = { options, parse_opt, args_doc, doc };
+static struct argp argp	= { options, parse_opt }; 	// = { options, parse_opt, args_doc, doc };
 
 int main(int argc, char* argv[])
 {
 /////////////////////////////////////////////////////////////
-
+/*
  int start_address_hex = atoi(argv[2]);
  if (start_address_hex > 8000)				//only true if start address is given in hex
 {
 	printf("USAGE: ERROR: ADDRESS SIZE TOO LARGE\n");
 	//fclose(fp);
 	return 0;
-}
+}*/
 /////////////////////////////////////////////////////////////
 /* Ensure the user invoked us with at least 3 arguments */
-  if (argc < 3 || strlen(argv[1]) < 1)
+ /* if (argc < 3 || strlen(argv[1]) < 1)
     {
         printError(argv[1], -1,"Usage: %s filename hex_start", argv[0]);
         return EXIT_FAILURE;
     }
-
+*/
 /* FIXME: Remove comment wrapper once above struct and switch are populated
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
 */
+    argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
 
     int start_new;
     sscanf(argv[2], "%06X", &start_new);
@@ -69,7 +68,8 @@ int main(int argc, char* argv[])
         free(link);
     }
 
-    return exit_status;
+   	return exit_status;
+
 }
 
 /**
