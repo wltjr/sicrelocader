@@ -3,6 +3,9 @@
 
 int exit_status = EXIT_SUCCESS;
 
+char *filename;
+char *start;
+char *platform;
 
 const char *argp_program_version = "Version 1.0";
 const char *argp_program_bug_address = "TeamLoaders@123mail.org";
