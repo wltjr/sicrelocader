@@ -74,7 +74,10 @@ int main(int argc, char* argv[])
     int start_new;
     sscanf(argv[2], "%06X", &start_new);
     RECORD* first = readFile(argv[1], &start_new);
-
+	
+/* FIXME: uncomment
+    writeFile(filename,first);
+/
     RECORD* cur = first;
     while(cur) {
         RECORD* link = cur;
