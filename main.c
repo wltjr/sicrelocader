@@ -76,19 +76,19 @@ int main(int argc, char* argv[])
     int start_new = 0;
     printf("start = %s\n",start);
     start_new = strtol(start, NULL, 16);
-///////////////////////////////////////////////////////////
-    if(strcmp(filename, NULL) == 0) {
-       printError(NULL, -1, "FILE NOT FOUND");
-       return EXIT_FAILURE;
-    }
-    if(strcmp (start ,NULL) == 0) {
-       printError(NULL, -1, "START ADDRESS NOT FOUND");
-       return EXIT_FAILURE;
-    }
-    if(strcmp(platform, NULL) == 0) {
-           printError(NULL, -1, "START ADDRESS NOT FOUND");
-       return EXIT_FAILURE;
+///////////////////////////////////////////////////////////////
+    if(!filename) {
+           printError(NULL, -1, "FILE NOT FOUND");
+           return EXIT_FAILURE;
         }
+        if(!start) {
+           printError(NULL, -1, "START ADDRESS NOT FOUND");
+           return EXIT_FAILURE;
+        }
+        if(!platform) {
+           printError(NULL, -1, "No platform mentioned");
+           return EXIT_FAILURE;
+            }
 //////////////////////////////////////////////////////////////////
     if (strcmp( platform,"SIC" ) == 0)
 	{
