@@ -1,5 +1,6 @@
 #include "headers.h"
 
+#define SIC_HALF_BYTE_DEFAULT 3
 #define VARIABLE_WIDTH_FORMAT_INDEX 2
 #define RECORD_OBJ_OFFSET 9
 #define X_FLAG_BIT (1 << 15)
@@ -27,7 +28,7 @@ int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, 
     int offset = m_address - record->start;
 
     left = record->data + RECORD_OBJ_OFFSET + (offset * 2);
-    if (XE_flag)
+    if (XE_flag && half_bytes > SIC_HALF_BYTE_DEFAULT)
         left++;
 
     unsigned int objAddress = 0;
