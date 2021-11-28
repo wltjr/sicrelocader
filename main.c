@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
     int SicXE_max = 1000000;
     int start_new = 0;
     printf("start = %s\n",start);
-    start_new = strtol(start, NULL, 16);
+   // start_new = strtol(start, NULL, 16);
 ///////////////////////////////////////////////////////////////
     if(!filename) {
            printError(NULL, -1, "FILE NOT FOUND");
@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
            printError(NULL, -1, "No platform mentioned");
            return EXIT_FAILURE;
             }
+	start_new = strtol(start, NULL, 16);
 //////////////////////////////////////////////////////////////////
     if (strcmp( platform,"SIC" ) == 0)
 	{
@@ -116,7 +117,7 @@ int main(int argc, char* argv[])
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////
-	RECORD* first = readFile(argv[1], &start_new);
+	RECORD* first = readFile(filename, &start_new);
 
 /* FIXME: uncomment
     writeFile(filename,first);
