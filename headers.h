@@ -65,3 +65,4 @@ RECORD* readFile(char* filename, int* start_new);
 int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag);
 
 
+int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag);
