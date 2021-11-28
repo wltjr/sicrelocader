@@ -74,6 +74,7 @@ int main(int argc, char* argv[])
     int start_new;
     printf("start = %s\n",start);
     sscanf(argv[2], "%06X", &start_new);
+///////////////////////////////////////////////////////////
     if(filename) {
        printError(NULL, -1, "FILE NOT FOUND");
        return EXIT_FAILURE;
@@ -86,11 +87,38 @@ int main(int argc, char* argv[])
            printError(NULL, -1, "START ADDRESS NOT FOUND");
        return EXIT_FAILURE;
         }
-    RECORD* first = readFile(argv[1], &start_new);
-	
+//////////////////////////////////////////////////////////////////
+    if (strcmp( platform,"SIC" ) == 0)
+	{
+          if (start_new > Sic_max)
+          {
+           printError(NULL, -1, "Exceeded system memory %d > %d, hex %X > %X", start_new, Sic_max, start_new, Sic_max);
+           //fclose(fp);
+           return EXIT_FAILURE;
+	  }
+	}
+	else if(strcmp( platform,"SICXE" ) == 0) 
+	{
+	   if (start_new > SicXE_max)
+            {
+              printError(NULL, -1, "Exceeded system memory %d > %d, hex %X > %X", start_new, SicXE_max, start_new, SicXE_max);
+              //fclose(fp);
+              return EXIT_FAILURE;
+	    }
+	}
+	else
+	{
+          printError(NULL, -1, "USAGE: ERROR: IVALID PLATFORM TYPE");
+          //fclose(fp);
+          return EXIT_FAILURE;
+	}
+
+///////////////////////////////////////////////////////////////////////////////////
+	RECORD* first = readFile(argv[1], &start_new);
+
 /* FIXME: uncomment
     writeFile(filename,first);
-/
+*/
     RECORD* cur = first;
     while(cur) {
         RECORD* link = cur;
