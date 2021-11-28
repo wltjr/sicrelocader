@@ -15,10 +15,11 @@ static char doc[] = "";
 static char args_doc[] = "";
 
 static struct argp_option options[] = {
-{0,'d',0,0,"Show a dot on the screen"},
-{"filename",'f',0,0,"Name of file"}, // -f, --filename    Name of file... some description
-{"start",'s',0,0,"Start address in hex"},// -s, --start        Start address in hex... some description
-{"platform",'p',0,0," Platform SIC or SICXE."},// -p, --platform    Platform SIC or SICXE... some description
+{0,0,0,0,"Required arguments:"},
+{"filename",'f',"FILE",0,"Name of file"}, // -f, --filename    Name of file... some description
+{"start",'s',"0000",0,"Start address in hex"},// -s, --start        Start address in hex... some description
+{"platform",'p',"PLATFORM",0," Platform SIC or SICXE."},// -p, --platform    Platform SIC or SICXE... some description
+{0,0,0,0,"GNU Options:", 2},
 {0}
 };
 
@@ -70,10 +71,11 @@ int main(int argc, char* argv[])
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
 */
     argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
-
+    int Sic_max = 32768;
+    int SicXE_max = 1000000;
     int start_new;
     printf("start = %s\n",start);
-    sscanf(argv[2], "%06X", &start_new);
+    sscanf(start, "%06X", &start_new);
 ///////////////////////////////////////////////////////////
     if(filename) {
        printError(NULL, -1, "FILE NOT FOUND");
