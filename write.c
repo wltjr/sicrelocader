@@ -31,3 +31,9 @@ int writeFile(char filename, RECORD* first)
     cur = first;
     while(cur) {
         fprintf(fp, "%s",cur->data);
+ cur = cur->next;
+     }
+
+     fclose(fp);
+     return first;
+ }
