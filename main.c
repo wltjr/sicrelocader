@@ -23,12 +23,15 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     switch(key) {
 	 case 'd': printf (".\n");
         break;
-	case 'f': printf("f\n");
-	 break;
-	case 's': printf("s\n");
-	 break;
-	case 'p': printf("p\n");
-	 break;
+	case 'f':
+		{filename = state->argv[1];
+        	 break;}
+	case 's':
+	       	{start = state->argv[2];
+        	 break;}
+	case 'p':
+	        {platform = state->argv[3];
+        	 break;}
         case ARGP_KEY_NO_ARGS:
             if(!state->argv[1])
                 argp_usage(state);
