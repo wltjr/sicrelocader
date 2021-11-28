@@ -72,7 +72,20 @@ int main(int argc, char* argv[])
     argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
 
     int start_new;
+    printf("start = %s\n",start);
     sscanf(argv[2], "%06X", &start_new);
+    if(filename) {
+       printError(NULL, -1, "FILE NOT FOUND");
+       return EXIT_FAILURE;
+    }
+    if(start) {
+       printError(NULL, -1, "START ADDRESS NOT FOUND");
+       return EXIT_FAILURE;
+    } 
+    if(platform) {
+           printError(NULL, -1, "START ADDRESS NOT FOUND");
+       return EXIT_FAILURE;
+        }
     RECORD* first = readFile(argv[1], &start_new);
 	
 /* FIXME: uncomment
