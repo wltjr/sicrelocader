@@ -1,3 +1,4 @@
+
 #include "headers.h"
 
 /**
@@ -15,6 +16,18 @@ int writeFile(char filename, RECORD* first)
     RECORD cur;
     char *newfile;
 
-    // FIXME: change the filename here to a new filename
-
     fp = fopen(newfile, "w");
+
+    if (!fp)
+    {
+        if (errno != 0)
+            printError(filename, -1, "%s", strerror(errno));
+        else
+            printError(filename, -1, "File not found or could not be written to");
+        return NULL;
+    }
+
+    // write linked list
+    cur = first;
+    while(cur) {
+        fprintf(fp, "%s",cur->data);
