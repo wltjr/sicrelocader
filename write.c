@@ -29,12 +29,15 @@ int writeFile(char* filename, RECORD* first)
 
     // write linked list
     cur = first;
-    while(curr){
+    while(curr)
+{
       if(curr->size != 0)
         fprintf(fp, "T%s%s%s\n", cur->start, cur->size, cur->data);
-        
-        cur = cur->next;
-     }
+      else
+	fprintf(fp, "%s", cur->data);
+
+    cur = cur->next;
+}
 
      fclose(fp);
      return first;
