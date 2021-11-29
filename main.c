@@ -74,6 +74,7 @@ int main(int argc, char* argv[])
     int Sic_max = 32768;
     int SicXE_max = 1000000;
     int start_new = 0;
+    char xe_flag = 0;
     printf("start = %s\n",start);
    // start_new = strtol(start, NULL, 16);
 ///////////////////////////////////////////////////////////////
@@ -102,6 +103,7 @@ int main(int argc, char* argv[])
 	}
 	else if(strcmp( platform,"SICXE" ) == 0) 
 	{
+       xe_flag = 1;
 	   if (start_new > SicXE_max)
             {
               printError(NULL, -1, "Exceeded system memory %d > %d, hex %X > %X", start_new, SicXE_max, start_new, SicXE_max);
@@ -117,7 +119,7 @@ int main(int argc, char* argv[])
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////
-	RECORD* first = readFile(filename, &start_new);
+	RECORD* first = readFile(filename, &start_new, xe_flag);
 
 /* FIXME: uncomment
     writeFile(filename,first);
