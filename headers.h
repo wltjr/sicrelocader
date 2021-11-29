@@ -45,10 +45,11 @@ void printError(const char *filename, const int line, const char *format, ...);
  *
  * @filename filename to the sic object file, relative or absolute name
  * @start_new the new start address for the program to be relocated to
+ * @xe_flag the flag which tells the loader if it is reading SIC or SICXE records, non-zero value indicates SICXE
  *
  * @return a pointer to the first RECORD struct in the linked list
  */
-RECORD* readFile(char* filename, int* start_new);
+RECORD* readFile(char* filename, int* start_new, char xe_flag);
 
 /**
  * Relocates a t-record to a new start address.
