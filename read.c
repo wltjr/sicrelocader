@@ -34,10 +34,11 @@ RECORD* addRecord(char *line, int *line_num, RECORD** first, RECORD** last)
  *
  * @filename filename to the sic object file, relative or absolute name
  * @start_new the new start address for the program to be relocated to
+ * @xe_flag the flag which tells the loader if it is reading SIC or SICXE records, non-zero value indicates SICXE
  *
  * @return a pointer to the first RECORD struct in the linked list
  */
-RECORD* readFile(char* filename, int* start_new)
+RECORD* readFile(char* filename, int* start_new, char xe_flag)
 {
     FILE *fp = NULL;
     RECORD* first = NULL;
@@ -102,7 +103,7 @@ RECORD* readFile(char* filename, int* start_new)
             sscanf(skip,"%06X",&maddress);
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&mod_len);
-            rewriteTRecord(first->next, start_old, *start_new, maddress, mod_len, 0);
+            rewriteTRecord(first->next, start_old, *start_new, maddress, mod_len, xe_flag);
 
 #ifdef DEBUG
             printf("mod-address = %06X, len = %02X \n", maddress, mod_len);
