@@ -8,9 +8,9 @@
  * @first a pointer to the first RECORD struct in the linked list
  *
  * @return a  integer status
- /
+ */
 
-int writeFile(char filename, RECORD* first)
+int writeFile(char* filename, RECORD* first)
 {
     FILE fp = NULL;
     RECORD cur;
@@ -29,9 +29,11 @@ int writeFile(char filename, RECORD* first)
 
     // write linked list
     cur = first;
-    while(cur) {
-        fprintf(fp, "%s",cur->data);
- cur = cur->next;
+    while(curr){
+      if(curr->size != 0)
+        fprintf(fp, "T%s%s%s\n", cur->start, cur->size, cur->data);
+        
+        cur = cur->next;
      }
 
      fclose(fp);
