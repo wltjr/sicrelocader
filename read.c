@@ -155,14 +155,12 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         cur = cur->next;
     }
 
-#ifdef DEBUG
     // display linked list
     cur = first;
     while(cur) {
         printf("%s",cur->data);
         cur = cur->next;
     }
-#endif
 
     fclose(fp);
     return first;
