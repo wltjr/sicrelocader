@@ -83,14 +83,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
             char *skip;
 
             rec = addRecord(line, &line_num, &first, &last);
-            
+
             skip = line + RECORD_ADDR_OFFSET;
             sscanf(skip,"%06X",&rec->start);
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&rec->len);
-            
+
             strncpy(rec->data, line, rec->size);
-            printf("%s", rec->data);
 #ifdef DEBUG
             printf("tstart-address = %06X, len = %02X \n", rec->start, rec->len);
 #endif
