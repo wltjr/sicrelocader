@@ -16,9 +16,9 @@ static char args_doc[] = "";
 
 static struct argp_option options[] = {
 {0,0,0,0,"Required arguments:"},
-{"filename",'f',"FILE",0,"Name of file"}, // -f, --filename    Name of file... some description
-{"start",'s',"0000",0,"Start address in hex"},// -s, --start        Start address in hex... some description
-{"platform",'p',"PLATFORM",0," Platform SIC or SICXE."},// -p, --platform    Platform SIC or SICXE... some description
+{"filename",'f',"FILE",0," Interpret PAGE argument as filename or file. "},
+{"start",'s',"0000",0," Interpret PAGE argument as start address in hex. "},
+{"platform",'p',"PLATFORM",0," Interpret PAGE argument as platform type - SIC or SICXE. "},
 {0,0,0,0,"GNU Options:", 2},
 {0}
 };
@@ -67,9 +67,7 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 */
-/* FIXME: Remove comment wrapper once above struct and switch are populated
-    argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
-*/
+
     argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
     int Sic_max = 32768;
     int SicXE_max = 1000000;
