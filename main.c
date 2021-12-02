@@ -12,7 +12,7 @@ const char *argp_program_bug_address = "TeamLoaders@123mail.org";
 static char doc[] = "";
 
 /* Unused arguments description*/
-static char args_doc[] = "";
+static char args_doc[] = "ARG1 [FILENAME...], ARG2 [ADDRESS...], ARG3 [PLATFORM...]";
 
 static struct argp_option options[] = {
 {0,0,0,0,"Required arguments:"},
