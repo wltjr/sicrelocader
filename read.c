@@ -161,6 +161,8 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         cur = cur->next;
     }
 
+    // exit label for error goto
+    exit:
     fclose(fp);
     return first;
 }
