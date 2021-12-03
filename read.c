@@ -101,7 +101,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&mod_len);
             if(!cur)
-                cur = first;
+                cur = first->next;
             cur = rewriteTRecord(cur, start_old, *start_new, maddress, mod_len, xe_flag);
 
 #ifdef DEBUG
