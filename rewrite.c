@@ -5,24 +5,31 @@
 #define RECORD_OBJ_OFFSET 9
 #define X_FLAG_BIT (1 << 15)
 
-int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag)
+RECORD* rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag)
 {
     // find the correct t-record
     char* left;
     char variableWidthFormat[] = "%0*X";
     variableWidthFormat[VARIABLE_WIDTH_FORMAT_INDEX] = half_bytes + '0';
 
-    while (record != NULL)
+    if (record == NULL) return NULL;
+
+    if (!(m_address >= record->start && m_address <= (record->start + record->len)))
     {
-
-        if (m_address >= record->start && m_address <= (record->start + record->len))
-            break;
-
+        // we are not at the correct t record
         record = record->next;
-    }
+        while (record != NULL)
+        {
 
+            if (m_address >= record->start && m_address <= (record->start + record->len))
+                break;
+
+            record = record->next;
+        }
+    }
+    
     if (record == NULL)
-        return 1; // TODO: error codes or error message
+        return NULL; // TODO: error codes or error message
 
     // process the t-record
     int offset = m_address - record->start;
@@ -46,5 +53,5 @@ int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, 
     strncpy(left, tempBuffer, half_bytes);
     free(tempBuffer);
 
-    return 0;
+    return record;
 }
