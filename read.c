@@ -43,6 +43,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
     FILE *fp = NULL;
     RECORD* first = NULL;
     RECORD* last = NULL;
+    RECORD* cur = NULL;
     int TREC_LEN = 71;
     int line_num = 0;
     int maddress = 0;
@@ -102,7 +103,9 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
             sscanf(skip,"%06X",&maddress);
             skip = line + RECORD_SIZE_OFFSET;
             sscanf(skip,"%02X",&mod_len);
-            rewriteTRecord(first->next, start_old, *start_new, maddress, mod_len, xe_flag);
+            if(!cur)
+                cur = first;
+            cur = rewriteTRecord(cur, start_old, *start_new, maddress, mod_len, xe_flag);
 
 #ifdef DEBUG
             printf("mod-address = %06X, len = %02X \n", maddress, mod_len);
@@ -146,7 +149,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
     }
 
     // re-write the start address of T records
-    RECORD* cur = first->next;
+    cur = first->next;
     char start[RECORD_SIZE_OFFSET+1] = {0};
     while(cur->data[0]!=69) {
         sprintf(start,"T%06X",(*start_new + (cur->start - start_old)));
