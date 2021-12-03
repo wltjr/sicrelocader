@@ -63,7 +63,4 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag);
  *
  * @return 1 on successful rewrite of the t-record, otherwise the function returns 0
  */
-int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag);
-
-
-int rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag);
+RECORD* rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag);
