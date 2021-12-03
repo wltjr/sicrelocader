@@ -40,7 +40,7 @@ RECORD* rewriteTRecord(RECORD* record, int old_start, int new_start, int m_addre
 
     unsigned int objAddress = 0;
     if (sscanf(left, variableWidthFormat, &objAddress) == 0)
-        return 1;
+        return NULL;
 
     unsigned int xBit = objAddress & X_FLAG_BIT;
     objAddress = objAddress & (X_FLAG_BIT - 1);
