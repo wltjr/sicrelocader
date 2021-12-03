@@ -1,8 +1,5 @@
 #include "headers.h"
 
-#define DEBUG
-
-
 /**
  * Adds a record to the linked list, with memory allocated based on line size
  *
