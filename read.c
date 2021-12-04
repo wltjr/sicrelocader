@@ -78,6 +78,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         line_num++;
         // handle text record 84 = T
         if(line[0]==84) {
+/////////////////////////////////////////////////////////////////////////////////////////
+        if(strlen(line) == 70)
+        {
+            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            goto exit;
+         }
+///////////////////////////////////////////////////////////////////////////////////////////
             RECORD* rec;
             char *skip;
 
@@ -95,6 +102,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         }
         // handle modification record 77 = M
         else if(line[0]==77) {
+/////////////////////////////////////////////////////////////////////////////////////////
+        if(strlen(line) == 16)
+        {
+            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            goto exit;
+         }
+///////////////////////////////////////////////////////////////////////////////////////////
             char *skip;
 
             skip = line + RECORD_ADDR_OFFSET;
@@ -111,6 +125,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         }
         // handle header record 72 = H
         else if(line[0]==72) {
+/////////////////////////////////////////////////////////////////////////////////////////
+        if(strlen(line) == 19)
+        {
+            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            goto exit;
+         }
+///////////////////////////////////////////////////////////////////////////////////////////
             RECORD* rec;
             char *skip;
 
@@ -131,6 +152,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         }
         // handle end record 69 = E
         else if(line[0]==69) {
+/////////////////////////////////////////////////////////////////////////////////////////
+        if(strlen(line) == 7)
+        {
+            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            goto exit;
+         }
+///////////////////////////////////////////////////////////////////////////////////////////
             RECORD* rec;
             char *skip;
 
@@ -144,16 +172,15 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
             printf("exec old = %06X\n", exec_old);
 #endif
         }
-        else if((line[0]) != 68) || (line[0] != 82))
+
+       /* if((line[0]) != 68) || (line[0] != 82))
         {
-        // error M / D records must be linked before loading
            printError(NULL, line_num, "M / D records must be linked before loading");
 
         } else
         {
-        // error invalid line
            printError(NULL, line_num, "error invalid line");
-        }
+        }*/
 ////////////////////////////////////////////////////////////////
 	int startVal = *start_new;	//startVal is in terpreted as decimal value
 	//printf("startVal = %d\n",startVal);
