@@ -50,31 +50,12 @@ static struct argp argp	= { options, parse_opt }; 	// = { options, parse_opt, ar
 
 int main(int argc, char* argv[])
 {
-/////////////////////////////////////////////////////////////
-/*
- int start_address_hex = atoi(argv[2]);
- if (start_address_hex > 8000)				//only true if start address is given in hex
-{
-	printf("USAGE: ERROR: ADDRESS SIZE TOO LARGE\n");
-	//fclose(fp);
-	return 0;
-}*/
-/////////////////////////////////////////////////////////////
-/* Ensure the user invoked us with at least 3 arguments */
- /* if (argc < 3 || strlen(argv[1]) < 1)
-    {
-        printError(argv[1], -1,"Usage: %s filename hex_start", argv[0]);
-        return EXIT_FAILURE;
-    }
-*/
-
     argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
-    int Sic_max = 32768;
-    int SicXE_max = 1000000;
-    int start_new = 0;
-    char xe_flag = 0;
-    printf("start = %s\n",start);
-   // start_new = strtol(start, NULL, 16);
+   int Sic_max = 32768;
+   int SicXE_max = 1000000;
+   int start_new = 0;
+   char xe_flag = 0;
+   //printf("start = %s\n",start);
 ///////////////////////////////////////////////////////////////
     if(!filename) {
            printError(NULL, -1, "FILE NOT FOUND");
@@ -90,9 +71,9 @@ int main(int argc, char* argv[])
             }
 	start_new = strtol(start, NULL, 16);
 //////////////////////////////////////////////////////////////////
-    if (strcmp( platform,"SIC" ) == 0)
+  if (strcmp( platform,"SIC" ) == 0)
 	{
-          if (start_new > Sic_max)
+          if (start_new > Sic_max) // START_NEW SHOULD BE INTERPRETED IN HEX AND SIC_MAX 
           {
            printError(NULL, -1, "Exceeded system memory %d > %d, hex %X > %X", start_new, Sic_max, start_new, Sic_max);
            //fclose(fp);
@@ -101,14 +82,15 @@ int main(int argc, char* argv[])
 	}
 	else if(strcmp( platform,"SICXE" ) == 0) 
 	{
-       xe_flag = 1;
-	   if (start_new > SicXE_max)
+       	   xe_flag = 1;
+
+	   if (start_new > SicXE_max) // SHOULD SIC_XE BE F4240 SENSE START_NEW IS INTERPRETED IN HEX???????????????
             {
               printError(NULL, -1, "Exceeded system memory %d > %d, hex %X > %X", start_new, SicXE_max, start_new, SicXE_max);
               //fclose(fp);
               return EXIT_FAILURE;
 	    }
-	}
+	  }
 	else
 	{
           printError(NULL, -1, "USAGE: ERROR: IVALID PLATFORM TYPE");
@@ -117,11 +99,8 @@ int main(int argc, char* argv[])
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////
-	RECORD* first = readFile(filename, &start_new, xe_flag);
+    RECORD* first = readFile(filename, &start_new, xe_flag);
 
-/* FIXME: uncomment
-    writeFile(filename,first);
-*/
     RECORD* cur = first;
     while(cur) {
         RECORD* link = cur;
@@ -131,7 +110,6 @@ int main(int argc, char* argv[])
     }
 
    	return exit_status;
-
 }
 
 /**
