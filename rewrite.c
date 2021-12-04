@@ -7,35 +7,6 @@
 #define X_FLAG_BIT_XE (1 << 3)
 #define N_I_BIT_MASK 3
 
-RECORD* rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag)
-{
-    // find the correct t-record
-    if (record == NULL) return NULL;
-
-    if (!(m_address >= record->start && m_address <= (record->start + record->len)))
-    {
-        // we are not at the correct t record
-        record = record->next;
-        while (record != NULL)
-        {
-
-            if (m_address >= record->start && m_address <= (record->start + record->len))
-                break;
-
-            record = record->next;
-        }
-    }
-
-    if (record == NULL)
-        return NULL; // TODO: error codes or error message
-    
-    if (XE_flag)
-        return rewriteXeSicTRecord(record, old_start, new_start, m_address, half_bytes);
-    else
-        return rewriteBaseSICTRecord(record, old_start, new_start, m_address, half_bytes);
-}
-
-
 RECORD* rewriteBaseSICTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes)
 {
     char* left;
@@ -99,4 +70,32 @@ RECORD* rewriteXeSicTRecord(RECORD* record, int old_start, int new_start, int m_
     free(tempBuffer);
 
     return record;
+}
+
+RECORD* rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag)
+{
+    // find the correct t-record
+    if (record == NULL) return NULL;
+
+    if (!(m_address >= record->start && m_address <= (record->start + record->len)))
+    {
+        // we are not at the correct t record
+        record = record->next;
+        while (record != NULL)
+        {
+
+            if (m_address >= record->start && m_address <= (record->start + record->len))
+                break;
+
+            record = record->next;
+        }
+    }
+
+    if (record == NULL)
+        return NULL; // TODO: error codes or error message
+    
+    if (XE_flag)
+        return rewriteXeSicTRecord(record, old_start, new_start, m_address, half_bytes);
+    else
+        return rewriteBaseSICTRecord(record, old_start, new_start, m_address, half_bytes);
 }
