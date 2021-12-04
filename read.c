@@ -144,6 +144,16 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
             printf("exec old = %06X\n", exec_old);
 #endif
         }
+        else if((line[0]) != 68) || (line[0] != 82))
+        {
+        // error M / D records must be linked before loading
+           printError(NULL, line_num, "M / D records must be linked before loading");
+
+        } else
+        {
+        // error invalid line
+           printError(NULL, line_num, "error invalid line");
+        }
 ////////////////////////////////////////////////////////////////
 	int startVal = *start_new;	//startVal is in terpreted as decimal value
 	//printf("startVal = %d\n",startVal);
