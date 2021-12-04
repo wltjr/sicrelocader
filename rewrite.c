@@ -10,10 +10,6 @@
 RECORD* rewriteTRecord(RECORD* record, int old_start, int new_start, int m_address, int half_bytes, char XE_flag)
 {
     // find the correct t-record
-    char* left;
-    char variableWidthFormat[] = "%0*X";
-    variableWidthFormat[VARIABLE_WIDTH_FORMAT_INDEX] = half_bytes + '0';
-
     if (record == NULL) return NULL;
 
     if (!(m_address >= record->start && m_address <= (record->start + record->len)))
