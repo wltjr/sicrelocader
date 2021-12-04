@@ -81,7 +81,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 70)
         {
-            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 16)
         {
-            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 19)
         {
-            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 7)
         {
-            printError(NULL, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -175,11 +175,11 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 
        else if((line[0] != 68) || (line[0] != 82))
         {
-           printError(NULL, line_num, "M / D records must be linked before loading");
+           printError(filename, line_num, "M / D records must be linked before loading");
 
         } else
         {
-           printError(NULL, line_num, "error invalid line");
+           printError(filename, line_num, "error invalid line");
         }
 ////////////////////////////////////////////////////////////////
 	int startVal = *start_new;	//startVal is in terpreted as decimal value
@@ -189,7 +189,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 	{
           if((startVal + prog_len ) > 32768) //therefore comparison is in decimal
 	  {
-	  	   printError(NULL, line_num, "RELOCATION ADDRESS IS BEYOND SIC MEMORY");
+	  	   printError(filename, line_num, "RELOCATION ADDRESS IS BEYOND SIC MEMORY");
       	  	   goto exit;
 	  }
 	}
@@ -197,7 +197,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 	{
 	 if((startVal + prog_len ) > 1000000)   //therefore comparison is in decimal
 	  {
-	  	   printError(NULL, line_num, "RELOCATION ADDRESS IS BEYOND SIC_XE MEMORY");
+	  	   printError(filename, line_num, "RELOCATION ADDRESS IS BEYOND SIC_XE MEMORY");
       		   goto exit;
 	  }
 	}
