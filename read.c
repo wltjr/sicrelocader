@@ -1,5 +1,6 @@
 #include "headers.h"
 
+
 /**
  * Adds a record to the linked list, with memory allocated based on line size
  *
@@ -143,6 +144,27 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
             printf("exec old = %06X\n", exec_old);
 #endif
         }
+////////////////////////////////////////////////////////////////
+	int startVal = *start_new;	//startVal is in terpreted as decimal value
+	//printf("startVal = %d\n",startVal);
+	//printf("prog-len = %d\n",prog_len);
+	if (xe_flag == 0)
+	{
+          if((startVal + prog_len ) > 32768) //therefore comparison is in decimal
+	  {
+	  	   printError(NULL, line_num, "RELOCATION ADDRESS IS BEYOND SIC MEMORY");
+      	  	   goto exit;
+	  }
+	}
+	else if(xe_flag == 1)
+	{
+	 if((startVal + prog_len ) > 1000000)   //therefore comparison is in decimal
+	  {
+	  	   printError(NULL, line_num, "RELOCATION ADDRESS IS BEYOND SIC_XE MEMORY");
+      		   goto exit;
+	  }
+	}
+////////////////////////////////////////////////////////////
     }
 
     // re-write the start address of T records
