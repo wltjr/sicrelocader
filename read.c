@@ -78,13 +78,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         line_num++;
         // handle text record 84 = T
         if(line[0]==84) {
-/////////////////////////////////////////////////////////////////////////////////////////
+
         if(strlen(line) == TREC_LEN)
         {
             printError(filename, line_num, "EXCCEEDS RECORD LENGTH");
             goto exit;
          }
-///////////////////////////////////////////////////////////////////////////////////////////
+
             RECORD* rec;
             char *skip;
 
@@ -102,13 +102,12 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         }
         // handle modification record 77 = M
         else if(line[0]==77) {
-/////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 16)
         {
             printError(filename, line_num, " EXCCEEDS RECORD LENGTH");
             goto exit;
          }
-///////////////////////////////////////////////////////////////////////////////////////////
+
             char *skip;
 
             skip = line + RECORD_ADDR_OFFSET;
@@ -125,13 +124,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         }
         // handle header record 72 = H
         else if(line[0]==72) {
-/////////////////////////////////////////////////////////////////////////////////////////
+
         if(strlen(line) == 19)
         {
             printError(filename, line_num, "EXCCEEDS RECORD LENGTH");
             goto exit;
          }
-///////////////////////////////////////////////////////////////////////////////////////////
+
             RECORD* rec;
             char *skip;
 
@@ -152,13 +151,13 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         }
         // handle end record 69 = E
         else if(line[0]==69) {
-/////////////////////////////////////////////////////////////////////////////////////////
+
         if(strlen(line) == 7)
         {
             printError(filename, line_num, "EXCCEEDS RECORD LENGTH");
             goto exit;
          }
-///////////////////////////////////////////////////////////////////////////////////////////
+
             RECORD* rec;
             char *skip;
 
@@ -181,10 +180,8 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         {
            printError(filename, line_num, "error invalid line");
         }
-////////////////////////////////////////////////////////////////
+
 	int startVal = *start_new;	//startVal is in terpreted as decimal value
-	//printf("startVal = %d\n",startVal);
-	//printf("prog-len = %d\n",prog_len);
 	if (xe_flag == 0)
 	{
           if((startVal + prog_len ) > 32768) //therefore comparison is in decimal
@@ -201,7 +198,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
       		   goto exit;
 	  }
 	}
-////////////////////////////////////////////////////////////
+
     }
 
     // re-write the start address of T records
