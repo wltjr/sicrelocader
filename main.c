@@ -9,16 +9,16 @@ char *platform;
 
 const char *argp_program_version = "Version 1.0";
 const char *argp_program_bug_address = "TeamLoaders@123mail.org";
-static char doc[] = "";
+//static char doc[] = "";
 
 /* Unused arguments description*/
-static char args_doc[] = "ARG1 [FILENAME...], ARG2 [ADDRESS...], ARG3 [PLATFORM...]";
+//static char args_doc[] = "ARG1 [FILENAME...], ARG2 [ADDRESS...], ARG3 [PLATFORM...]";
 
 static struct argp_option options[] = {
 {0,0,0,0,"Required arguments:"},
-{"filename",'f',"FILE",0," Interpret PAGE argument as filename or file. "},
-{"start",'s',"0000",0," Interpret PAGE argument as start address in hex. "},
-{"platform",'p',"PLATFORM",0," Interpret PAGE argument as platform type - SIC or SICXE. "},
+{"filename",'f',"FILE",0," Interpret argument as filename or file. "},
+{"start",'s',"0000",0," Interpret argument as start address in hex. "},
+{"platform",'p',"PLATFORM",0," Interpret argument as platform type - SIC or SICXE. "},
 {0,0,0,0,"GNU Options:", 2},
 {0}
 };
@@ -29,12 +29,15 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
         break;
 	case 'f':
 		filename = state->argv[2];
-        	 break;
+        	filename = arg;
+		 break;
 	case 's':
 	       	start = state->argv[4];
+		start = arg;
         	 break;
 	case 'p':
 	        platform = state->argv[6];
+		platform = arg;
         	 break;
         case ARGP_KEY_NO_ARGS:
             if(!state->argv[1])
@@ -46,11 +49,12 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     return(0);
 }
 
-static struct argp argp	= { options, parse_opt }; 	// = { options, parse_opt, args_doc, doc };
+static struct argp argp	 =  { options, parse_opt };		//{ options, parse_opt, args_doc,doc };	//{ options, parse_opt };
 
 int main(int argc, char* argv[])
 {
-    argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
+   // argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
+   argp_parse (&argp, argc, argv, 0, 0, 0);
    int Sic_max = 32768;
    int SicXE_max = 1000000;
    int start_new = 0;
@@ -93,7 +97,7 @@ int main(int argc, char* argv[])
 	  }
 	else
 	{
-          printError(NULL, -1, "USAGE: ERROR: IVALID PLATFORM TYPE");
+          printError(NULL, -1, "IVALID PLATFORM TYPE");
           //fclose(fp);
           return EXIT_FAILURE;
 	}
