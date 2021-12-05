@@ -49,18 +49,18 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     return(0);
 }
 
-static struct argp argp	 =  { options, parse_opt };		//{ options, parse_opt, args_doc,doc };	//{ options, parse_opt };
+static struct argp argp	 =  { options, parse_opt };		//{ options, parse_opt, args_doc,doc };
 
 int main(int argc, char* argv[])
 {
-   // argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0);
+   // argp_parse (&argp, argc, argv,  ARGP_NO_EXIT, 0, 0); 
    argp_parse (&argp, argc, argv, 0, 0, 0);
+
    int Sic_max = 32768;
    int SicXE_max = 1000000;
    int start_new = 0;
    char xe_flag = 0;
-   //printf("start = %s\n",start);
-///////////////////////////////////////////////////////////////
+
     if(!filename) {
            printError(NULL, -1, "FILE NOT FOUND");
            return EXIT_FAILURE;
@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
            return EXIT_FAILURE;
             }
 	start_new = strtol(start, NULL, 16);
-//////////////////////////////////////////////////////////////////
+
   if (strcmp( platform,"SIC" ) == 0)
 	{
           if (start_new > Sic_max) // START_NEW SHOULD BE INTERPRETED IN HEX AND SIC_MAX 
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
           return EXIT_FAILURE;
 	}
 
-///////////////////////////////////////////////////////////////////////////////////
+
     RECORD* first = readFile(filename, &start_new, xe_flag);
 
     RECORD* cur = first;
