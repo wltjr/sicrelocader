@@ -79,9 +79,9 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
         // handle text record 84 = T
         if(line[0]==84) {
 /////////////////////////////////////////////////////////////////////////////////////////
-        if(strlen(line) == 70)
+        if(strlen(line) == TREC_LEN)
         {
-            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 16)
         {
-            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, " EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 19)
         {
-            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ RECORD* readFile(char* filename, int* start_new, char xe_flag)
 /////////////////////////////////////////////////////////////////////////////////////////
         if(strlen(line) == 7)
         {
-            printError(filename, line_num, "ERROR: EXCCEEDS RECORD LENGTH");
+            printError(filename, line_num, "EXCCEEDS RECORD LENGTH");
             goto exit;
          }
 ///////////////////////////////////////////////////////////////////////////////////////////
