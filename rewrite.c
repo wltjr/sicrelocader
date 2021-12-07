@@ -2,7 +2,6 @@
 
 #define SIC_HALF_BYTE_DEFAULT 3
 #define VARIABLE_WIDTH_FORMAT_INDEX 2
-#define RECORD_OBJ_OFFSET 9
 #define X_FLAG_BIT (1 << 15)
 #define X_FLAG_BIT_XE (1 << 3)
 #define N_I_BIT_MASK 3
@@ -16,7 +15,7 @@ RECORD* rewriteBaseSICTRecord(RECORD* record, int old_start, int new_start, int 
     // process the t-record
     int offset = m_address - record->start;
 
-    left = record->data + RECORD_OBJ_OFFSET + (offset * 2);
+    left = record->data + (offset * 2);
 
     unsigned int objAddress = 0;
     if (sscanf(left, variableWidthFormat, &objAddress) == 0)
@@ -46,7 +45,7 @@ RECORD* rewriteXeSicTRecord(RECORD* record, int old_start, int new_start, int m_
     int offset = m_address - record->start;
 
     // get the opcode and check ni bits
-    left = record->data + RECORD_OBJ_OFFSET + (offset * 2) - 2;
+    left = record->data + (offset * 2) - 2;
     unsigned int opcode = 0;
     if (sscanf(left, variableWidthFormat, &opcode) == 0)
         return NULL;
